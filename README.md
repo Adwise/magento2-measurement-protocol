@@ -4,9 +4,9 @@
 
 # Magento 2 Analytics Measurement Protocol
 
-This module aims to send transactions server-side to a Google Analytics property using the measurement protocol. In the traditional frontend implementation a lot of transactions are lost due to end users not reaching the success page. This module aims to fix this problem by sending the data directly to the property via the measurement protocol.
+This module aims to send transactions server-side to a Google Analytics property using the measurement protocol. A lot of transactions got lost in the traditional frontend implementation due to end users not reaching the success page. This module aims to fix this problem by sending the data directly to the property via the measurement protocol.
 
-This module was a private repo at first. By popular demand we made this open source (and to contribute to the open source community). If you currently use the private version, this open source variant is a drop-in replacement.
+This module was initially a private repo, but we made this open source by popular demand (and to contribute to the open source community). If you currently use the private repo, you can drop in replace it with this open source variant.
 
 ## Features
 - Toggle in Admin to enable/disable module
