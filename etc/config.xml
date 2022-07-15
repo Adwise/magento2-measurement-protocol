@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <adwise_analytics>
+            <general>
+                <brand_attribute>
+                    <![CDATA[manufacturer]]>
+                </brand_attribute>
+            </general>
+            <hit>
+                <ga_collect_url>
+                    <![CDATA[www.google-analytics.com/collect]]>
+                </ga_collect_url>
+                <pageview_path>
+                    <![CDATA[/checkout/success/]]>
+                </pageview_path>
+                <user_agent>
+                    <![CDATA[Online shop]]>
+                </user_agent>
+
+                <type>
+                    <![CDATA[event]]>
+                </type>
+
+                <event_category>
+                    <![CDATA[ecommerce]]>
+                </event_category>
+
+                <event_action>
+                    <![CDATA[purchase]]>
+                </event_action>
+
+                <cd_known>
+                    <![CDATA[cd10]]>
+                </cd_known>
+            </hit>
+        </adwise_analytics>
+    </default>
+</config>

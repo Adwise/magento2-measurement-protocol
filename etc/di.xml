@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="adwise_analytics_order_push" xsi:type="object">Adwise\Analytics\Console\Command\OrderPushCommand</item>
+                <item name="adwise_analytics_creditmemo_push" xsi:type="object">Adwise\Analytics\Console\Command\CreditmemoPushCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Checkout\Model\ShippingInformationManagement">
+        <plugin name="save-in-quote" type="Adwise\Analytics\Model\Checkout\ShippingInformationManagementPlugin" sortOrder="10"/>
+    </type>
+
+    <type name="Adwise\Analytics\Model\OrderDataProviders">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="adwise_analytics_base_order_data" xsi:type="object">Adwise\Analytics\Model\DataProviders\Order\BaseOrderDataProvider</item>
+                <item name="adwise_analytics_products_data" xsi:type="object">Adwise\Analytics\Model\DataProviders\Order\ProductsDataProvider</item>
+                <item name="adwise_analytics_products_category_data" xsi:type="object">Adwise\Analytics\Model\DataProviders\Order\ProductCategoryProvider</item>
+                <item name="adwise_analytics_products_brand_data" xsi:type="object">Adwise\Analytics\Model\DataProviders\Order\ProductBrandProvider</item>
+                <item name="adwise_analytics_cid_data" xsi:type="object">Adwise\Analytics\Model\DataProviders\CIDProvider</item>
+                <item name="adwise_analytics_timestamp_data" xsi:type="object">Adwise\Analytics\Model\DataProviders\TimestampProvider</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Adwise\Analytics\Model\CreditMemoDataProviders">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="adwise_analytics_creditmemo_totals" xsi:type="object">Adwise\Analytics\Model\DataProviders\Creditmemo\BaseCreditMemoProvider</item>
+                <item name="adwise_analytics_creditmemo_products" xsi:type="object">Adwise\Analytics\Model\DataProviders\Creditmemo\CreditMemoProductProvider</item>
+                <item name="adwise_analytics_creditmemo_cid" xsi:type="object">Adwise\Analytics\Model\DataProviders\Creditmemo\CreditMemoCIDProvider</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

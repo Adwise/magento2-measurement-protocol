@@ -1,0 +1,37 @@
+{
+  "name": "adwise/magento2-gamp",
+  "description": "Adwise Magento 2 Google Analytics Measurement Protocol",
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "Joost Groot Bruinderink",
+      "email": "j.grootbruinderink@adwise.nl"
+    },
+    {
+      "name": "Jeroen Balk",
+      "email": "j.balk@adwise.nl"
+    },
+    {
+      "name": "Noah Pluimers",
+      "email": "n.pluimers@adwise.nl"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Adwise\\Analytics\\": ""
+    }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:Adwise/magento2-measurement-protocol.git"
+    }
+  ],
+  "require": {
+    "ext-curl": "*"
+  }
+}

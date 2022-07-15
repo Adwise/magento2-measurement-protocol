@@ -1,0 +1,13 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_save_after">
+        <observer name="adwise_sales_order_save_after" instance="Adwise\Analytics\Observer\Sales\Order\SaveAfter" />
+    </event>
+
+    <event name="sales_order_creditmemo_save_after">
+        <observer name="adwise_sales_creditmemo_save_after" instance="Adwise\Analytics\Observer\Sales\CreditMemo\SaveAfter"/>
+    </event>
+
+    <event name="sales_model_service_quote_submit_before">
+        <observer name="aw_ga_client_id" instance="Adwise\Analytics\Observer\SaveGaClientIdToOrderObserver"/>
+    </event>
+</config>
