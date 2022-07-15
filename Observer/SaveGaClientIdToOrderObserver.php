@@ -63,6 +63,17 @@ class SaveGaClientIdToOrderObserver implements ObserverInterface
 
     public function getGaClientIdFromCookie(): ?string
     {
-        return $this->_cookieManager->getCookie($this->dataHelper->getCidCookieName());
+        $cookieValue = $this->_cookieManager->getCookie($this->dataHelper->getCidCookieName());
+
+        if (!$cookieValue) {
+            return null;
+        }
+
+        $parts = explode('.', $cookieValue);
+        if (count($parts) !== 4) {
+            return null;
+        }
+
+        return implode('.', [$parts[2], $parts[3]]);
     }
 }
