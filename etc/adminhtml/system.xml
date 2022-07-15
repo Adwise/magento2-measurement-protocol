@@ -8,8 +8,7 @@
             <label>Analytics</label>
             <tab>adwise</tab>
             <resource>Adwise_Analytics::config</resource>
-
-            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General</label>
 
                 <field id="is_enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
@@ -34,6 +33,10 @@
                 <field id="ignored_categories" translate="label" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Ignored categories</label>
                     <comment><![CDATA[Comma separated list of category ID's that should be ignored in payload]]></comment>
+                </field>
+                <field id="cid_cookie" translate="label" sortOrder="80" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>CID cookie</label>
+                    <comment><![CDATA[Cookie name for the CID, default _ga]]></comment>
                 </field>
             </group>
             <group id="hit" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">

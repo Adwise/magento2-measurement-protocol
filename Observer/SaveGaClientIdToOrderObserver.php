@@ -2,14 +2,19 @@
 
 namespace Adwise\Analytics\Observer;
 
+use Adwise\Analytics\Helper\Data;
 use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Sales\Model\Order;
 use Magento\Quote\Model\QuoteRepository;
 use Psr\Log\LoggerInterface;
+use Magento\Framework\Stdlib\CookieManagerInterface;
+
 
 class SaveGaClientIdToOrderObserver implements ObserverInterface
 {
+    /** @var CookieManagerInterface */
+    protected $_cookieManager;
 
     /** @var QuoteRepository */
     protected $_quoteRepository;
@@ -17,17 +22,25 @@ class SaveGaClientIdToOrderObserver implements ObserverInterface
     /** @var LoggerInterface */
     protected $logger;
 
+    /** @var Data */
+    protected $dataHelper;
+
     /**
      * SaveGaClientIdToOrderObserver constructor.
      * @param QuoteRepository $quoteRepository
      * @param LoggerInterface $logger
+     * @param CookieManagerInterface $cookieManager
      */
     public function __construct(
         QuoteRepository $quoteRepository,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        CookieManagerInterface $cookieManager,
+        Data $dataHelper
     ) {
         $this->_quoteRepository = $quoteRepository;
         $this->logger = $logger;
+        $this->_cookieManager = $cookieManager;
+        $this->dataHelper = $dataHelper;
     }
 
     /**
@@ -40,8 +53,7 @@ class SaveGaClientIdToOrderObserver implements ObserverInterface
         $order = $observer->getOrder();
 
         try {
-            $quote = $this->_quoteRepository->get($order->getQuoteId());
-            $order->setGaClientId($quote->getGaClientId());
+            $order->setGaClientId($this->getGaClientIdFromCookie());
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage());
         } finally {
@@ -49,4 +61,20 @@ class SaveGaClientIdToOrderObserver implements ObserverInterface
         }
     }
 
+    public function getGaClientIdFromQuote(Order $order): ?string
+    {
+        try {
+            $quote = $this->_quoteRepository->get($order->getQuoteId());
+            return $quote->getGaClientId();
+        } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
+            $this->logger->error($e->getMessage());
+        } finally {
+            return null;
+        }
+    }
+
+    public function getGaClientIdFromCookie(): ?string
+    {
+        return $this->_cookieManager->getCookie($this->dataHelper->getCidCookieName());
+    }
 }

@@ -17,6 +17,8 @@ class Data
 
     const BRAND_ATTRIBUTE = 'adwise_analytics/general/brand_attribute';
 
+    const CID_COOKIE_NAME = 'adwise_analytics/general/cid_cookie';
+
     const DEFAULT_BRAND = 'adwise_analytics/general/default_brand';
 
     const IGNORED_CATEGORIES = 'adwise_analytics/general/ignored_categories';
@@ -113,6 +115,14 @@ class Data
     public function getIsEnabled()
     {
         return (bool) $this->getConfig(self::XML_IS_ENABLED);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCidCookieName()
+    {
+        return (string) $this->getConfig(self::CID_COOKIE_NAME);
     }
 
     /**
