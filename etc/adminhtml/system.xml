@@ -9,7 +9,7 @@
             <tab>adwise</tab>
             <resource>Adwise_Analytics::config</resource>
 
-            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General</label>
 
                 <field id="is_enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
@@ -36,7 +36,7 @@
                     <comment><![CDATA[Comma separated list of category ID's that should be ignored in payload]]></comment>
                 </field>
             </group>
-            <group id="hit" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="hit" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Hit configuration</label>
 
                 <field id="ga_collect_url" translate="label comment" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
@@ -113,7 +113,7 @@
                     <label>Custom Dimension for Timestamp</label>
                 </field>
             </group>
-            <group id="hit_order" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="hit_order" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Hit configuration - Order</label>
 
                 <field id="is_enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
@@ -121,7 +121,7 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
-            <group id="hit_credit_memo" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="hit_credit_memo" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Hit configuration - Credit Memo</label>
 
                 <field id="is_enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
@@ -136,7 +136,7 @@
                     <label>Event action for creditmemo, default refund</label>
                 </field>
             </group>
-            <group id="debug" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="debug" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Debug</label>
                 <field id="payload_logging" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Enable debug logging for payloads to GA</label>
