@@ -61,18 +61,6 @@ class SaveGaClientIdToOrderObserver implements ObserverInterface
         }
     }
 
-    public function getGaClientIdFromQuote(Order $order): ?string
-    {
-        try {
-            $quote = $this->_quoteRepository->get($order->getQuoteId());
-            return $quote->getGaClientId();
-        } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
-            $this->logger->error($e->getMessage());
-        } finally {
-            return null;
-        }
-    }
-
     public function getGaClientIdFromCookie(): ?string
     {
         return $this->_cookieManager->getCookie($this->dataHelper->getCidCookieName());

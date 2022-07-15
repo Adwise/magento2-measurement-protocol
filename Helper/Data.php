@@ -122,7 +122,7 @@ class Data
      */
     public function getCidCookieName()
     {
-        return (string) $this->getConfig(self::CID_COOKIE_NAME);
+        return (string) $this->getConfig(self::CID_COOKIE_NAME) ?? '_ga';
     }
 
     /**

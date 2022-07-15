@@ -38,7 +38,6 @@ See [CHANGELOG.md](CHANGELOG.md)
 ## Roadmap
 
 - Google Analytics 4 support
-- Instead of getting the client ID from the Javascript code running on the frontend, we will read a cookie once the order is placed to determine the correct client ID
 
 ## License
 
