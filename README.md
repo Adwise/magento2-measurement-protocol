@@ -1,8 +1,8 @@
-<a href="https://aimeos.org/">
-    <img src="https://cdn.adwise.nl/hosted_files/github/logo.webp" alt="Aimeos logo" title="Aimeos" align="right" height="60" />
+<a href="https://www.adwise.nl/">
+    <img src="https://cdn.adwise.nl/hosted_files/github/logo.webp" alt="Adwise" title="Adwise" align="right" height="50" />
 </a>
 
-# Magento 2 Google Analytics Measurement Protocol
+# Magento 2 Analytics Measurement Protocol
 
 This module aims to send transactions server-side to a Google Analytics property using the measurement protocol. In the traditional frontend implementation a lot of transactions are lost due to endusers not reaching the success page. This module aims to fix this problem due to sending the data directly to the property via the measurement protocol.
 
