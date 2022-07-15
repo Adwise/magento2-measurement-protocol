@@ -33,7 +33,7 @@ This module was initially a private repo, but we made this open source by popula
 
 ## Changelog
 
-See <a href="changelog.MD">CHANGELOG.MD</a>
+See [CHANGELOG.md](CHANGELOG.md)
 
 ## Roadmap
 
