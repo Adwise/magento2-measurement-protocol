@@ -7,6 +7,9 @@
                 <brand_attribute>
                     <![CDATA[manufacturer]]>
                 </brand_attribute>
+                <cid_cookie>
+                    <![CDATA[_ga]]>
+                </cid_cookie>
             </general>
             <hit>
                 <ga_collect_url>

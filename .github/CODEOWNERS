@@ -1,0 +1,5 @@
+# These owners will be the default owners for everything in
+# the repo. Unless a later match takes precedence,
+# @Adwise/software-development will be requested for
+# review when someone opens a pull request.
+* @Adwise/software-development @JSeverein @jeroenbalk-adwise @npluimers @rexterkate-adwise @hvanrees @KenrickDietrich
