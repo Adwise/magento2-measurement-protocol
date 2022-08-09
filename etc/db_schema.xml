@@ -2,7 +2,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
     <table name="sales_order" resource="sales" comment="Sales Flat Order">
         <column xsi:type="int" name="aw_analytics_export" nullable="true"
-                identity="false" default="0" comment="GA Exported"/>
+                identity="false" default="null" comment="GA Exported"/>
         <column xsi:type="decimal" name="aw_analytics_amount" nullable="true"
                 default="0" comment="Amount exported to GA"/>
         <column xsi:type="varchar" name="ga_client_id" nullable="true" length="255"
