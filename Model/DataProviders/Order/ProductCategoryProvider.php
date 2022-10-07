@@ -34,7 +34,7 @@ class ProductCategoryProvider implements OrderDataProviderInterface
 
     public function mapHitProducts($products)
     {
-        $data = [];
+        $data = ['items' => []];
         $i = 1;
 
         foreach ($products as $product) {
@@ -45,9 +45,22 @@ class ProductCategoryProvider implements OrderDataProviderInterface
             $fullProduct = $this->productHelper->getProductBySku($product->getSku());
             if ($fullProduct) {
                 $categories = $this->productHelper->getProductCategories($fullProduct);
-                $data['pr' . $i . 'ca'] = implode('|', $categories);
+                $item = [];
+                $i = 1;
+                foreach ($categories as $category) {
+                    if ($i === 1) {
+                        $item['item_category'] = $category;
+                    } else {
+                        $item['item_category' . $i] = $category;
+                    }
+                    if ($i === 5) {
+                        break;
+                    }
+                    $i++;
+                }
             }
-            ++$i;
+
+            $data['items'][$product->getSku()] = $item;
         }
 
         return $data;

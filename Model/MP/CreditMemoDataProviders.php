@@ -1,14 +1,10 @@
 <?php
 
-namespace Adwise\Analytics\Model;
+namespace Adwise\Analytics\Model\MP;
 
 use Adwise\Analytics\Api\CreditMemoProviderInterface;
 use Magento\Sales\Api\Data\CreditmemoInterface;
 
-/**
- * @deprecated
- * @see \Adwise\Analytics\Model\MP\CreditMemoDataProviders
- */
 class CreditMemoDataProviders implements CreditMemoProviderInterface
 {
 
@@ -29,7 +25,7 @@ class CreditMemoDataProviders implements CreditMemoProviderInterface
         foreach($this->creditMemoDataProviders as $creditMemoDataProvider){
             $result = $creditMemoDataProvider->getData($creditmemo);
             if(is_array($result)) {
-                $data = array_merge($data, $result);
+                $data = array_replace_recursive($data, $result);
             }
         }
         return $data;

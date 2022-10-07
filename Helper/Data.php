@@ -11,53 +11,23 @@ class Data
     /**
      * XML CONFIG PATHS
      */
-    const XML_IS_ENABLED = 'adwise_analytics/general/is_enabled';
+    const XML_PATH_MODULE_IS_ENABLED = 'adwise_analytics/general/is_enabled';
 
-    const XML_TRACKING_ID = 'adwise_analytics/general/tracking_id';
+    const XML_PATH_BRAND_ATTRIBUTE = 'adwise_analytics/general/brand_attribute';
 
-    const BRAND_ATTRIBUTE = 'adwise_analytics/general/brand_attribute';
+    const XML_PATH_CID_COOKIE_NAME = 'adwise_analytics/general/cid_cookie';
 
-    const CID_COOKIE_NAME = 'adwise_analytics/general/cid_cookie';
+    const XML_PATH_DEFAULT_BRAND = 'adwise_analytics/general/default_brand';
 
-    const DEFAULT_BRAND = 'adwise_analytics/general/default_brand';
+    const XML_PATH_IGNORED_CATEGORIES = 'adwise_analytics/general/ignored_categories';
 
-    const IGNORED_CATEGORIES = 'adwise_analytics/general/ignored_categories';
+    const XML_PATH_MEASUREMENT_PROTOCOL_ENABLED = 'adwise_analytics/mp/is_enabled';
+    const XML_PATH_MEASUREMENT_PROTOCOL_MEASUREMENT_ID = 'adwise_analytics/mp/measurement_id';
+    const XML_PATH_MEASUREMENT_PROTOCOL_API_SECRET = 'adwise_analytics/mp/api_secret';
+    const XML_PATH_MEASUREMENT_PROTOCOL_ENDPOINT = 'adwise_analytics/mp/endpoint';
+    const XML_PATH_MEASUREMENT_PROTOCOL_PURCHASE_ENABLED = 'adwise_analytics/mp/purchase/is_enabled';
+    const XML_PATH_MEASUREMENT_PROTOCOL_REFUND_ENABLED = 'adwise_analytics/mp/refund/is_enabled';
 
-    const XML_HIT_TYPE = 'adwise_analytics/hit/type';
-
-    const XML_PAGEVIEW_HOSTNAME = 'adwise_analytics/hit/pageview_hostname';
-
-    const XML_PAGEVIEW_PATH = 'adwise_analytics/hit/pageview_path';
-
-    const XML_PAGEVIEW_TITLE = 'adwise_analytics/hit/pageview_title';
-
-    const XML_EVENT_CATEGORY = 'adwise_analytics/hit/event_category';
-
-    const XML_EVENT_ACTION = 'adwise_analytics/hit/event_action';
-
-    const XML_EVENT_LABEL = 'adwise_analytics/hit/event_label';
-
-    const XML_EVENT_VALUE = 'adwise_analytics/hit/event_value';
-
-    const GA_COLLECT_URL = 'adwise_analytics/hit/ga_collect_url';
-
-    const USER_AGENT = 'adwise_analytics/hit/user_agent';
-
-    const CUSTOM_DIMENSION_KNOWN = 'adwise_analytics/hit/cd_known';
-
-    const CUSTOM_DIMENSION_TIMESTAMP = 'adwise_analytics/hit/cd_timestamp';
-
-    const TRANSACTION_AFFILIATION = 'adwise_analytics/hit/transaction_affiliation';
-
-    const XML_IS_ORDER_HIT_ENABLED = 'adwise_analytics/hit_order/is_enabled';
-
-    const XML_IS_CREDIT_MEMO_HIT_ENABLED = 'adwise_analytics/hit_credit_memo/is_enabled';
-
-    const XML_CREDIT_MEMO_EVENT_ACTION = 'adwise_analytics/hit_credit_memo/event_action';
-
-    const XML_CREDIT_MEMO_PRODUCT_ACTION = 'adwise_analytics/hit_credit_memo/product_action';
-
-    const XML_DEBUG_PAYLOAD_LOGGING_ENABLED = 'adwise_analytics/debug/payload_logging';
 
     protected $storeId = 0;
 
@@ -125,8 +95,39 @@ class Data
         return (string) $this->getConfig(self::CID_COOKIE_NAME) ?? '_ga';
     }
 
+    public function getMPEnabled(): bool
+    {
+        return (bool) $this->getConfig(self::XML_PATH_MEASUREMENT_PROTOCOL_ENABLED);
+    }
+
+    public function getMPMeasurementId(): string
+    {
+        return (string) $this->getConfig(self::XML_PATH_MEASUREMENT_PROTOCOL_MEASUREMENT_ID);
+    }
+
+    public function getMPApiSecret(): string
+    {
+        return (string) $this->getConfig(self::XML_PATH_MEASUREMENT_PROTOCOL_API_SECRET);
+    }
+
+    public function getMPEndpoint(): string
+    {
+        return (string) $this->getConfig(self::XML_PATH_MEASUREMENT_PROTOCOL_ENDPOINT);
+    }
+
+    public function getMPPurchaseEventEnabled(): bool
+    {
+        return (bool) $this->getConfig(self::XML_PATH_MEASUREMENT_PROTOCOL_PURCHASE_ENABLED);
+    }
+
+    public function getMPRefundEventEnabled(): bool
+    {
+        return (bool) $this->getConfig(self::XML_PATH_MEASUREMENT_PROTOCOL_REFUND_ENABLED);
+    }
+
     /**
      * @return bool
+     * @deprecated
      */
     public function getIsOrderHitEnabled()
     {
@@ -135,17 +136,26 @@ class Data
 
     /**
      * @return bool
+     * @deprecated
      */
     public function getIsCreditMemoHitEnabled()
     {
         return (bool) $this->getConfig(self::XML_IS_CREDIT_MEMO_HIT_ENABLED);
     }
 
+    /**
+     * @return mixed
+     * @deprecared
+     */
     public function getCreditMemoEventAction()
     {
         return $this->getConfig(self::XML_CREDIT_MEMO_EVENT_ACTION);
     }
 
+    /**
+     * @return mixed
+     * @deprecared
+     */
     public function getCreditMemoProductAction()
     {
         return $this->getConfig(self::XML_CREDIT_MEMO_PRODUCT_ACTION);
@@ -153,6 +163,7 @@ class Data
 
     /**
      * @return mixed
+     * @deprecared
      */
     public function getHitType()
     {
@@ -161,6 +172,7 @@ class Data
 
     /**
      * @return mixed
+     * @deprecared
      */
     public function getPageviewHostname()
     {
@@ -169,6 +181,7 @@ class Data
 
     /**
      * @return mixed
+     * @deprecared
      */
     public function getPageviewPath()
     {
@@ -177,6 +190,7 @@ class Data
 
     /**
      * @return mixed
+     * @deprecared
      */
     public function getPageviewTitle()
     {
@@ -185,6 +199,7 @@ class Data
 
     /**
      * @return mixed
+     * @deprecared
      */
     public function getEventCategory()
     {
@@ -193,6 +208,7 @@ class Data
 
     /**
      * @return mixed
+     * @deprecared
      */
     public function getEventAction()
     {
@@ -201,6 +217,7 @@ class Data
 
     /**
      * @return mixed
+     * @deprecared
      */
     public function getEventLabel()
     {
@@ -209,6 +226,7 @@ class Data
 
     /**
      * @return mixed
+     * @deprecared
      */
     public function getEventValue()
     {
@@ -217,6 +235,7 @@ class Data
 
     /**
      * @return mixed
+     * @deprecated
      */
     public function getTrackingId()
     {
@@ -225,6 +244,7 @@ class Data
 
     /**
      * @return mixed
+     * @deprecated
      */
     public function getGaCollectUrl()
     {
@@ -233,6 +253,7 @@ class Data
 
     /**
      * @return mixed
+     * @deprecared
      */
     public function getUserAgent()
     {
@@ -241,6 +262,7 @@ class Data
 
     /**
      * @return mixed
+     *
      */
     public function getCustomDimensionKnown()
     {
@@ -254,22 +276,25 @@ class Data
 
     /**
      * @return mixed
+     * @deprecared
      */
     public function getDefaultBrand()
     {
-        return $this->getConfig(self::DEFAULT_BRAND);
+        return $this->getConfig(self::XML_PATH_DEFAULT_BRAND);
     }
 
     /**
      * @return mixed
+     * @deprecared
      */
     public function getBrandAttribute()
     {
-        return $this->getConfig(self::BRAND_ATTRIBUTE);
+        return $this->getConfig(self::XML_PATH_BRAND_ATTRIBUTE);
     }
 
     /**
      * @return mixed
+     * @deprecared
      */
     public function getTransactionAffiliation()
     {
@@ -278,6 +303,7 @@ class Data
 
     /**
      * @return array
+     * @deprecared
      */
     public function getIgnoredCategories()
     {

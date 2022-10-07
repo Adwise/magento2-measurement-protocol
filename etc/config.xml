@@ -11,33 +11,11 @@
                     <![CDATA[_ga]]>
                 </cid_cookie>
             </general>
-            <hit>
-                <ga_collect_url>
-                    <![CDATA[www.google-analytics.com/collect]]>
-                </ga_collect_url>
-                <pageview_path>
-                    <![CDATA[/checkout/success/]]>
-                </pageview_path>
-                <user_agent>
-                    <![CDATA[Online shop]]>
-                </user_agent>
-
-                <type>
-                    <![CDATA[event]]>
-                </type>
-
-                <event_category>
-                    <![CDATA[ecommerce]]>
-                </event_category>
-
-                <event_action>
-                    <![CDATA[purchase]]>
-                </event_action>
-
-                <cd_known>
-                    <![CDATA[cd10]]>
-                </cd_known>
-            </hit>
+            <mp>
+                <endpoint>
+                    <![CDATA[https://www.google-analytics.com/mp/collect]]>
+                </endpoint>
+            </mp>
         </adwise_analytics>
     </default>
 </config>

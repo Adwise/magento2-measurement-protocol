@@ -75,7 +75,7 @@ class AnalyticsService
     public function handleOrder(MagentoOrder $order) {
         $this->dataHelper->setStoreId($order->getStoreId());
 
-        if ($this->dataHelper->getIsEnabled() && !$this->dataHelper->getIsOrderHitEnabled()) {
+        if ($this->dataHelper->getIsEnabled() && $this->dataHelper->getMPEnabled() && !$this->dataHelper->getMPPurchaseEventEnabled()) {
             // if the order hit is not enabled, still set the aw_exported_amount to order value to allow refunds
             $order->setAwAnalyticsAmount($order->getGrandTotal());
             $order->setAwAnalyticsExport(self::EXPORT_STATUS_ORDER_HIT_DISABLED);
@@ -83,7 +83,10 @@ class AnalyticsService
             return self::ERROR_DISABLED;
         }
 
-        if (!($this->dataHelper->getIsEnabled() && $this->dataHelper->getIsOrderHitEnabled())) {
+        if ((!$this->dataHelper->getIsEnabled()) ||
+            (!$this->dataHelper->getMPEnabled()) ||
+            (!($this->dataHelper->getMPPurchaseEventEnabled()))
+        ) {
             return self::ERROR_DISABLED;
         }
 
@@ -149,7 +152,11 @@ class AnalyticsService
 
     public function handleCreditmemo(Creditmemo $creditmemo) {
         $this->dataHelper->setStoreId($creditmemo->getStoreId());
-        if (!($this->dataHelper->getIsEnabled() && $this->dataHelper->getIsCreditMemoHitEnabled())) {
+
+        if ((!$this->dataHelper->getIsEnabled()) ||
+            (!$this->dataHelper->getMPEnabled()) ||
+            (!($this->dataHelper->getMPPurchaseEventEnabled()))
+        ) {
             return self::ERROR_DISABLED;
         }
 
@@ -187,22 +194,25 @@ class AnalyticsService
         return self::SUCCESS;
     }
 
-    private function isCreditmemoAllowed(MagentoOrder $order) {
+    private function isCreditmemoAllowed(MagentoOrder $order)
+    {
         $state = $this->intval($order->getAwAnalyticsExport());
         return ($state === self::EXPORT_STATUS_OLD_EXPORTED_POSITIVE || $state === self::EXPORT_STATUS_PROCESSED || $state === self::EXPORT_STATUS_ORDER_HIT_DISABLED);
     }
 
-    private function isCancellationAllowed(MagentoOrder $order){
+    private function isCancellationAllowed(MagentoOrder $order)
+    {
         $state = $this->intval($order->getAwAnalyticsExport());
         return ($state === self::EXPORT_STATUS_OLD_EXPORTED_POSITIVE || $state === self::EXPORT_STATUS_PROCESSED);
     }
 
-    private function isOldOrder(MagentoOrder $order){
+    private function isOldOrder(MagentoOrder $order)
+    {
         $state = $this->intval($order->getAwAnalyticsExport());
         return $state === self::EXPORT_STATUS_OLD_EXPORTED_NEGATIVE || $state === self::EXPORT_STATUS_OLD_EXPORTED_POSITIVE;
     }
 
-    private function intval($val){
+    private function intval($val) {
         if($val === null){
             return null;
         }

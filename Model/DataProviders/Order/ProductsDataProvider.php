@@ -35,30 +35,40 @@ class ProductsDataProvider implements OrderDataProviderInterface
         $this->productHelper = $productHelper;
     }
 
+    /**
+     * @param OrderItemInterface[] $products
+     * @return array[]
+     */
     public function mapHitProducts($products)
     {
         $data = [];
-        $i = 1;
 
+        /**
+         * @var MagentoOrder\Item $product
+         */
         foreach ($products as $product) {
             if ($product->getParentItemId()) {
                 continue;
             }
 
             $fullProduct = $this->productHelper->getProductBySku($product->getSku());
-            if ($fullProduct) {
-                $data['pr' . $i . 'br'] = $fullProduct->getData($this->dataHelper->getBrandAttribute()) ? $fullProduct->getAttributeText($this->dataHelper->getBrandAttribute()) : $this->dataHelper->getDefaultBrand();
+
+            $item = [
+                'item_id' => $product->getSku(),
+                'item_name' => $product->getName(),
+            ];
+
+            if ($product->getDiscountAmount()) {
+                $item['discount'] = $this->round($product->getDiscountAmount());
             }
 
-            $data['pr' . $i . 'id'] = $product->getSku();
-            $data['pr' . $i . 'nm'] = $product->getName();
-            $data['pr' . $i . 'pr'] = $product->getPrice();
-            $data['pr' . $i . 'qt'] = $this->getProductQty($product);
+            $item['price'] = $this->round($product->getPrice());
+            $item['quantity'] = $this->round($this->getProductQty($product));
 
-            ++$i;
+            $data[$product->getSku()] = $item;
         }
 
-        return $data;
+        return ['items' => $data];
     }
 
     public function getData(OrderInterface $order)
@@ -77,5 +87,9 @@ class ProductsDataProvider implements OrderDataProviderInterface
     {
         $qty = $product->getQtyOrdered() ? $product->getQtyOrdered() : $product->getQty();
         return $this->undo ? -(int)$qty : $qty;
+    }
+
+    private function round($number){
+        return round($number, 4, PHP_ROUND_HALF_EVEN);
     }
 }

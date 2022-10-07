@@ -37,29 +37,23 @@ class BaseOrderDataProvider implements OrderDataProviderInterface
         }
 
         $data = [
-            'v' => 1,
-            't' => $this->dataHelper->getHitType(),
-            'el' => $order->getIncrementId(),
-            'tid' => $this->dataHelper->getTrackingId(),
-            'ti' => $order->getIncrementId(),
-            'ta' => $this->dataHelper->getTransactionAffiliation(),
-            'tr' => $priceMod * $this->round($order->getGrandTotal()),
-            'tt' => $priceMod * $this->round($order->getTaxAmount()),
-            'ts' => $priceMod * $this->round($order->getShippingAmount()),
-            'pa' => 'purchase'
+            'currency' => $order->getOrderCurrencyCode(),
+            'transaction_id' => $order->getIncrementId(),
+            'value' => $priceMod * $this->round($order->getGrandTotal()),
         ];
 
-        switch ($this->dataHelper->getHitType()) {
-            case 'event':
-                $data['ec'] = $this->dataHelper->getEventCategory();
-                $data['ea'] = $this->dataHelper->getEventAction();
-                break;
-            case 'pageview':
-                $data['dh'] = $this->dataHelper->getPageviewHostname();
-                $data['dp'] = $this->dataHelper->getPageviewPath();
-                $data['dt'] = $this->dataHelper->getPageviewTitle();
-                break;
+        if ($order->getCouponCode()) {
+            $data['coupon'] = $order->getCouponCode();
         }
+
+        if ($order->getShippingAmount()) {
+            $data['shipping'] = $priceMod * $this->round($order->getShippingAmount());
+        }
+
+        if ($order->getTaxAmount()) {
+            $data['tax'] = $priceMod * $this->round($order->getTaxAmount());
+        }
+
         return $data;
     }
 
