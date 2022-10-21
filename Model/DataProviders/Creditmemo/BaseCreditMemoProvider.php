@@ -29,6 +29,7 @@ class BaseCreditMemoProvider implements CreditMemoProviderInterface
             'transaction_id' => $creditmemo->getOrder()->getIncrementId(),
             'value' => $this->round($creditmemo->getGrandTotal()),
         ];
+
         $order = $creditmemo->getOrder();
 
         if ($order->getCouponCode()) {

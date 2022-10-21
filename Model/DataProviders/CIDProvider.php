@@ -31,9 +31,6 @@ class CIDProvider implements ClientIdProviderInterface
         }
 
         // generate random client id
-        return 'GA1.1.904941809.1556093647';
-
-
         return $this->identityService->generateId();
     }
 }
