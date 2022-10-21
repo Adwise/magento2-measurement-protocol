@@ -36,20 +36,33 @@ class CreditMemoProductProvider implements CreditMemoProviderInterface
     public function mapHitProducts($products)
     {
         $data = [];
-        $i = 1;
 
+        /**
+         * @var MagentoOrder\Item $product
+         */
         foreach ($products as $product) {
             if ($product->getParentItemId()) {
                 continue;
             }
 
-            $data['pr' . $i . 'id'] = $product->getSku();
-            $data['pr' . $i . 'qt'] = $this->getProductQty($product);
+            $fullProduct = $this->productHelper->getProductBySku($product->getSku());
 
-            ++$i;
+            $item = [
+                'item_id' => $product->getSku(),
+                'item_name' => $product->getName(),
+            ];
+
+            if ($product->getDiscountAmount()) {
+                $item['discount'] = $this->round($product->getDiscountAmount());
+            }
+
+            $item['price'] = $this->round($product->getPrice());
+            $item['quantity'] = $this->round($this->getProductQty($product));
+
+            $data[$product->getSku()] = $item;
         }
 
-        return $data;
+        return ['items' => $data];
     }
     public function getData(CreditmemoInterface $creditmemo)
     {
@@ -63,7 +76,7 @@ class CreditMemoProductProvider implements CreditMemoProviderInterface
      */
     public function getProductQty($product)
     {
-        $qty = $product->getQtyOrdered() ? $product->getQtyOrdered() : $product->getQty();
+        $qty = $product->getQtyRefunded() ? $product->getQtyRefunded() : $product->getQty();
         return (int)$qty;
     }
 }

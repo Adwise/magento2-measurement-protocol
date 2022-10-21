@@ -8,3 +8,6 @@
 
 ## 1.1.1
 - Fix default value being 0 instead of null (expected value)
+
+## 2.0.0 (pre-release)
+- Refactored to support Google Analytics 4, see UPGRADE_GUIDE.md to upgrade from 1.x to 2.x

@@ -25,26 +25,26 @@ class BaseCreditMemoProvider implements CreditMemoProviderInterface
     {
 
         $data = [
-            'v' => 1,
-            'tid' => $this->dataHelper->getTrackingId(),
-            't' => $this->dataHelper->getHitType(),
-            'el' => $creditmemo->getOrder()->getIncrementId(),
-            'ti' =>  $creditmemo->getOrder()->getIncrementId(),
-            'pa' => $this->dataHelper->getCreditMemoProductAction(),
-            'ni' => '1', // This is a no-interaction event
+            'currency' => $creditmemo->getOrderCurrencyCode(),
+            'transaction_id' => $creditmemo->getOrder()->getIncrementId(),
+            'value' => $this->round($creditmemo->getGrandTotal()),
         ];
+        $order = $creditmemo->getOrder();
 
-        switch ($this->dataHelper->getHitType()) {
-            case 'event':
-                $data['ec'] = $this->dataHelper->getEventCategory();
-                $data['ea'] = $this->dataHelper->getCreditMemoEventAction();
-                break;
-            case 'pageview':
-                $data['dh'] = $this->dataHelper->getPageviewHostname();
-                $data['dp'] = $this->dataHelper->getPageviewPath();
-                $data['dt'] = $this->dataHelper->getPageviewTitle();
-                break;
+        if ($order->getCouponCode()) {
+            $data['coupon'] = $order->getCouponCode();
         }
+
+        if ($order->getShippingAmount()) {
+            $data['shipping'] = $priceMod * $this->round($order->getShippingAmount());
+        }
+
+        if ($order->getTaxAmount()) {
+            $data['tax'] = $priceMod * $this->round($order->getTaxAmount());
+        }
+
+        return $data;
+
         return $data;
     }
 

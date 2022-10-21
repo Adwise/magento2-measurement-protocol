@@ -28,6 +28,12 @@ class CreditMemoDataProviders implements CreditMemoProviderInterface
                 $data = array_replace_recursive($data, $result);
             }
         }
-        return $data;
+
+        // items needs to be without keys
+        if(isset($data['items'])) {
+            $data['items'] = array_values($data['items']);
+        }
+
+        return ['name' => 'refund', 'params' => $data];
     }
 }

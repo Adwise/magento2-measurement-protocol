@@ -2,12 +2,12 @@
 
 namespace Adwise\Analytics\Model\DataProviders;
 
-use Adwise\Analytics\Api\OrderDataProviderInterface;
+use Adwise\Analytics\Api\MeasurementProtocol\ClientIdProviderInterface;
 use Adwise\Analytics\Helper\Data;
 use Magento\Framework\DataObject\IdentityGeneratorInterface;
 use Magento\Sales\Api\Data\OrderInterface;
 
-class CIDProvider implements OrderDataProviderInterface
+class CIDProvider implements ClientIdProviderInterface
 {
     /**
      * @var IdentityGeneratorInterface
@@ -24,16 +24,16 @@ class CIDProvider implements OrderDataProviderInterface
         $this->dataHelper = $data;
     }
 
-    public function getData(OrderInterface $order)
+    public function getClientId(OrderInterface $order)
     {
-        $data = [];
         if ($order->getGaClientId()) {
-            $data['cid'] = $order->getGaClientId();
-            $data[$this->dataHelper->getCustomDimensionKnown()] = 'Known';
-        } else {
-            $data['cid'] = $this->identityService->generateId();
-            $data[$this->dataHelper->getCustomDimensionKnown()] = 'Unknown';
+            return $order->getGaClientId();
         }
-        return $data;
+
+        // generate random client id
+        return 'GA1.1.904941809.1556093647';
+
+
+        return $this->identityService->generateId();
     }
 }

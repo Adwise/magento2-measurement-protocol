@@ -8,7 +8,7 @@ use Adwise\Analytics\Helper\Product;
 use DateTime;
 use Magento\Sales\Api\Data\OrderInterface;
 
-class TimestampProvider implements OrderDataProviderInterface
+class TimestampProvider
 {
     /**
      * @var Data
@@ -21,11 +21,11 @@ class TimestampProvider implements OrderDataProviderInterface
         $this->dataHelper = $dataHelper;
     }
 
-    public function getData(OrderInterface $order)
+    public function parseCreatedAtForMP($createdAt)
     {
-        if ($this->dataHelper->getCustomDimensionTimestamp()) {
-            $now = new DateTime();
-            $data[$this->dataHelper->getCustomDimensionTimestamp()] = $now->format('c');
-        }
+        // parse the date to a timestamp
+        $date = new DateTime($createdAt);
+        // if its longer than 3 days ago return null, else return $date as microseconds
+        return $date->getTimestamp() > (time() - 259200) ? $date->getTimestamp() * 1000 : null;
     }
 }

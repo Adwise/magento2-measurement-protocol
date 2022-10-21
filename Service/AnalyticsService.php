@@ -155,7 +155,7 @@ class AnalyticsService
 
         if ((!$this->dataHelper->getIsEnabled()) ||
             (!$this->dataHelper->getMPEnabled()) ||
-            (!($this->dataHelper->getMPPurchaseEventEnabled()))
+            (!$this->dataHelper->getMPRefundEventEnabled())
         ) {
             return self::ERROR_DISABLED;
         }

@@ -27,9 +27,9 @@ This module was initially a private repo, but we made this open source by popula
 ## Configuration
 
 - Go to Stores > Config > Adwise > Analytics
-- Set "Enable Measurement Protocol" to Yes
-- Add Google Analyics GA Tracking ID to "Tracking ID"
-- Enable (or disable) hits under "Hit configuration"
+- Set 'Enable Module' to Yes
+- Under Measurement Protocol, enable the Measurement Protocol and configure the various secrets
+- Enable (or disable) certain events under "Measurement Protocol"
 
 ## Changelog
 

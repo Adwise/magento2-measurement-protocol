@@ -46,7 +46,7 @@ class IncompatiblePluginList extends Template implements \Magento\Framework\Data
         return $incompatiblePlugins;
     }
 
-    public function readPrivateProperty(mixed $object, string $property): mixed
+    public function readPrivateProperty($object, string $property)
     {
         $reflection = new \ReflectionClass($object);
         $property = $reflection->getProperty($property);

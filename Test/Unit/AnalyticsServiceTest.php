@@ -71,8 +71,9 @@ class AnalyticsServiceTest extends PHPUnit\Framework\TestCase
      */
     private function enableSettings($enableModule, $enableOrderHit, $enableCreditMemoHit){
         $this->datahelperMock->expects($this->any())->method('getIsEnabled')->willReturn($enableModule);
-        $this->datahelperMock->expects($this->any())->method('getIsOrderHitEnabled')->willReturn($enableOrderHit);
-        $this->datahelperMock->expects($this->any())->method('getIsCreditMemoHitEnabled')->willReturn($enableCreditMemoHit);
+        $this->datahelperMock->expects($this->any())->method('getMPEnabled')->willReturn($enableModule);
+        $this->datahelperMock->expects($this->any())->method('getMPPurchaseEventEnabled')->willReturn($enableOrderHit);
+        $this->datahelperMock->expects($this->any())->method('getMPRefundEventEnabled')->willReturn($enableCreditMemoHit);
     }
 
     /**
@@ -244,7 +245,8 @@ class AnalyticsServiceTest extends PHPUnit\Framework\TestCase
         $order->expects($this->once())->method('getGrandTotal')->willReturn(100);
         $order->expects($this->any())->method('setAwAnalyticsAmount')->withConsecutive([100], [0]);
         $order->expects($this->any())->method('setAwAnalyticsExport')->withConsecutive([AnalyticsService::EXPORT_STATUS_ORDER_HIT_DISABLED], [AnalyticsService::EXPORT_STATUS_FULLY_REFUNDED]);
-        $order->expects($this->once())->method('save');
+        $order->expects($this->any())->method('save');
+
 
         $this->assertEquals(AnalyticsService::ERROR_DISABLED, $this->analyticsService->handleOrder($order));
 

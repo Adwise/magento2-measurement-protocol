@@ -2,28 +2,27 @@
 
 namespace Adwise\Analytics\Model\MP;
 
-use Adwise\Analytics\Api\OrderDataProviderInterface;
+use Adwise\Analytics\Api\MeasurementProtocol\UserPropertyProviderInterface;
 use Magento\Sales\Api\Data\OrderInterface;
 
-class OrderDataProviders implements OrderDataProviderInterface
+class UserPropertyDataProviders implements UserPropertyProviderInterface
 {
-
     /**
-     * @var OrderDataProviderInterface[]
+     * @var UserPropertyProviderInterface[]
      */
-    private $orderDataProviders;
+    private $userPropertyProviderInterfaces;
 
     public function __construct (
         array $providers
     ) {
-        $this->orderDataProviders = $providers;
+        $this->userPropertyProviderInterfaces = $providers;
     }
 
     public function getData(OrderInterface $order)
     {
         $data = [];
-        foreach($this->orderDataProviders as $orderDataProvider){
-            $result = $orderDataProvider->getData($order);
+        foreach($this->userPropertyProviderInterfaces as $userPropertyProviderInterface){
+            $result = $userPropertyProviderInterface->getData($order);
             if(is_array($result)) {
                 $data = array_replace_recursive($data, $result);
             }
@@ -34,6 +33,6 @@ class OrderDataProviders implements OrderDataProviderInterface
             $data['items'] = array_values($data['items']);
         }
 
-        return ['name' => 'purchase', 'params' => $data];
+        return $data;
     }
 }
