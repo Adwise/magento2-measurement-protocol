@@ -45,8 +45,6 @@ class BaseCreditMemoProvider implements CreditMemoProviderInterface
         }
 
         return $data;
-
-        return $data;
     }
 
     private function round($number){
