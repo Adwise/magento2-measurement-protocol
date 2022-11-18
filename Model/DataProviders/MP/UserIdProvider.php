@@ -2,7 +2,7 @@
 
 namespace Adwise\Analytics\Model\DataProviders\MP;
 
-use Adwise\Analytics\Api\UserIdProviderInterface;
+use Adwise\Analytics\Api\MeasurementProtocol\UserIdProviderInterface;
 use Magento\Sales\Api\Data\OrderInterface;
 
 class UserIdProvider implements UserIdProviderInterface

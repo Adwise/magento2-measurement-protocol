@@ -3,7 +3,6 @@
 namespace Adwise\Analytics\Service;
 
 use Adwise\Analytics\Api\MeasurementProtocol\ClientIdProviderInterface;
-use Adwise\Analytics\Api\UserIdProviderInterface;
 use Adwise\Analytics\Helper\Data;
 use Adwise\Analytics\Model\DataProviders\MP\TimestampProvider;
 use Adwise\Analytics\Model\MP\CreditMemoDataProviders as CreditMemoDataProvidersMP;
