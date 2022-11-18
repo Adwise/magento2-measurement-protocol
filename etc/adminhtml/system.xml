@@ -128,6 +128,23 @@
                     </field>
                 </group>
             </group>
+            <group id="frontend" translate="label" type="text" sortOrder="40" showInDefault="1" showInStore="1" showInWebsite="1">
+                <label>Frontend Tracking</label>
+                <field id="is_enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Frontend Tracking</label>
+                    <comment><![CDATA[Select <strong>Yes</strong> to enable frontend event tracking]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="tracking_type" translate="label comment" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Tracking Type</label>
+                    <comment><![CDATA[Select DataLayer to push events in a datalayer, or GTAG to use the GTAG Javascript]]></comment>
+                    <source_model>Adwise\Analytics\Model\Config\Source\TrackingType</source_model>
+                </field>
+                <field id="head_config" translate="label comment" sortOrder="30" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Head Content</label>
+                    <comment><![CDATA[Add the GTAG/GTM script to the head of the page]]></comment>
+                </field>
+            </group>
             <group id="debug" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Debug</label>
                 <field id="payload_logging" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
