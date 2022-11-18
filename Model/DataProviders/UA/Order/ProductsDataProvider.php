@@ -1,6 +1,6 @@
 <?php
 
-namespace Adwise\Analytics\Model\DataProviders\Order;
+namespace Adwise\Analytics\Model\DataProviders\UA\Order;
 
 use Adwise\Analytics\Api\OrderDataProviderInterface;
 use Adwise\Analytics\Helper\Data;
@@ -8,8 +8,11 @@ use Adwise\Analytics\Helper\Product;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Model\Order as MagentoOrder;
 
-class ProductBrandProvider implements OrderDataProviderInterface
+class ProductsDataProvider implements OrderDataProviderInterface
 {
+
+    private $undo = false;
+
     /**
      * @var Data
      */
@@ -34,7 +37,8 @@ class ProductBrandProvider implements OrderDataProviderInterface
 
     public function mapHitProducts($products)
     {
-        $data = ['items' => []];
+        $data = [];
+        $i = 1;
 
         foreach ($products as $product) {
             if ($product->getParentItemId()) {
@@ -42,12 +46,16 @@ class ProductBrandProvider implements OrderDataProviderInterface
             }
 
             $fullProduct = $this->productHelper->getProductBySku($product->getSku());
+            if ($fullProduct) {
+                $data['pr' . $i . 'br'] = $fullProduct->getData($this->dataHelper->getBrandAttribute()) ? $fullProduct->getAttributeText($this->dataHelper->getBrandAttribute()) : $this->dataHelper->getDefaultBrand();
+            }
 
-            $item = [
-                'item_brand' => $fullProduct->getData($this->dataHelper->getBrandAttribute()) ? $fullProduct->getAttributeText($this->dataHelper->getBrandAttribute()) : $this->dataHelper->getDefaultBrand()
-            ];
-            $item = array_filter($item);
-            $data['items'][$product->getSku()] = $item;
+            $data['pr' . $i . 'id'] = $product->getSku();
+            $data['pr' . $i . 'nm'] = $product->getName();
+            $data['pr' . $i . 'pr'] = $product->getPrice();
+            $data['pr' . $i . 'qt'] = $this->getProductQty($product);
+
+            ++$i;
         }
 
         return $data;
@@ -55,6 +63,19 @@ class ProductBrandProvider implements OrderDataProviderInterface
 
     public function getData(OrderInterface $order)
     {
+        $this->undo = $order->getStatus() === MagentoOrder::STATE_CANCELED;
+
         return $this->mapHitProducts($order->getItems());
+    }
+
+
+    /**
+     * @param $product
+     * @return int
+     */
+    public function getProductQty($product)
+    {
+        $qty = $product->getQtyOrdered() ? $product->getQtyOrdered() : $product->getQty();
+        return $this->undo ? -(int)$qty : $qty;
     }
 }

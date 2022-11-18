@@ -1,6 +1,6 @@
 <?php
 
-namespace Adwise\Analytics\Model\DataProviders;
+namespace Adwise\Analytics\Model\DataProviders\MP;
 
 use Adwise\Analytics\Api\UserIdProviderInterface;
 use Magento\Sales\Api\Data\OrderInterface;

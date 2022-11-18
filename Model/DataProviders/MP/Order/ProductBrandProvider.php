@@ -1,14 +1,14 @@
 <?php
 
-namespace Adwise\Analytics\Model\DataProviders\Order;
+namespace Adwise\Analytics\Model\DataProviders\MP\Order;
 
-use Adwise\Analytics\Api\OrderDataProviderInterface;
+use Adwise\Analytics\Api\MeasurementProtocol\OrderDataProviderInterface;
 use Adwise\Analytics\Helper\Data;
 use Adwise\Analytics\Helper\Product;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Model\Order as MagentoOrder;
 
-class ProductCategoryProvider implements OrderDataProviderInterface
+class ProductBrandProvider implements OrderDataProviderInterface
 {
     /**
      * @var Data
@@ -35,7 +35,6 @@ class ProductCategoryProvider implements OrderDataProviderInterface
     public function mapHitProducts($products)
     {
         $data = ['items' => []];
-        $i = 1;
 
         foreach ($products as $product) {
             if ($product->getParentItemId()) {
@@ -43,23 +42,11 @@ class ProductCategoryProvider implements OrderDataProviderInterface
             }
 
             $fullProduct = $this->productHelper->getProductBySku($product->getSku());
-            if ($fullProduct) {
-                $categories = $this->productHelper->getProductCategories($fullProduct);
-                $item = [];
-                $i = 1;
-                foreach ($categories as $category) {
-                    if ($i === 1) {
-                        $item['item_category'] = $category;
-                    } else {
-                        $item['item_category' . $i] = $category;
-                    }
-                    if ($i === 5) {
-                        break;
-                    }
-                    $i++;
-                }
-            }
 
+            $item = [
+                'item_brand' => $fullProduct->getData($this->dataHelper->getBrandAttribute()) ? $fullProduct->getAttributeText($this->dataHelper->getBrandAttribute()) : $this->dataHelper->getDefaultBrand()
+            ];
+            $item = array_filter($item);
             $data['items'][$product->getSku()] = $item;
         }
 

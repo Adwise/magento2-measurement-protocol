@@ -1,6 +1,6 @@
 <?php
 
-namespace Adwise\Analytics\Model\DataProviders;
+namespace Adwise\Analytics\Model\DataProviders\MP;
 
 use Adwise\Analytics\Api\MeasurementProtocol\ClientIdProviderInterface;
 use Adwise\Analytics\Helper\Data;

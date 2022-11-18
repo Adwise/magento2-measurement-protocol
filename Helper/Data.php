@@ -23,6 +23,17 @@ class Data
     const XML_PATH_MEASUREMENT_PROTOCOL_PURCHASE_ENABLED = 'adwise_analytics/mp/purchase/is_enabled';
     const XML_PATH_MEASUREMENT_PROTOCOL_REFUND_ENABLED = 'adwise_analytics/mp/refund/is_enabled';
     const XML_PATH_DEBUG_LOGGING = 'adwise_analytics/debug/payload_logging';
+    const XML_PATH_UNIVERSAL_ANALYTICS_ENABLED = 'adwise_analytics/ua/is_enabled';
+    const XML_PATH_UNIVERSAL_ANALYTICS_TRACKING_ID = 'adwise_analytics/ua/tracking_id';
+    const XML_PATH_UNIVERSAL_ANALYTICS_ENDPOINT = 'adwise_analytics/ua/endpoint';
+    const XML_PATH_UNIVERSAL_ANALYTICS_PURCHASE_ENABLED = 'adwise_analytics/ua/purchase/is_enabled';
+    const XML_PATH_UNIVERSAL_ANALYTICS_REFUND_ENABLED = 'adwise_analytics/ua/refund/is_enabled';
+    const XML_PATH_UNIVERSAL_ANALYTICS_CD_CID_KNOWN = 'adwise_analytics/ua/general/cd_cid_known';
+    const XML_PATH_UNIVERSAL_ANALYTICS_CD_TIMESTAMP = 'adwise_analytics/ua/general/cd_timestamp';
+    const XML_PATH_UNIVERSAL_ANALYTICS_TRANSACTION_AFFILIATION = 'adwise_analytics/ua/general/transaction_affiliation';
+    const XML_PATH_UNIVERSAL_ANALYTICS_EVENT_CATEGORY = 'adwise_analytics/ua/general/event_category';
+    const XML_PATH_UNIVERSAL_ANALYTICS_PURCHASE_EVENT_ACTION = 'adwise_analytics/ua/purchase/event_action';
+    const XML_PATH_UNIVERSAL_ANALYTICS_REFUND_EVENT_ACTION = 'adwise_analytics/ua/refund/event_action';
 
     protected $storeId = 0;
 
@@ -112,12 +123,82 @@ class Data
 
     public function getMPPurchaseEventEnabled(): bool
     {
-        return (bool) $this->getConfig(self::XML_PATH_MEASUREMENT_PROTOCOL_PURCHASE_ENABLED);
+        return (bool) $this->getConfig(self::XML_PATH_MEASUREMENT_PROTOCOL_PURCHASE_ENABLED) && $this->getMPEnabled();
     }
 
     public function getMPRefundEventEnabled(): bool
     {
-        return (bool) $this->getConfig(self::XML_PATH_MEASUREMENT_PROTOCOL_REFUND_ENABLED);
+        return (bool) $this->getConfig(self::XML_PATH_MEASUREMENT_PROTOCOL_REFUND_ENABLED) && $this->getMPEnabled();
+    }
+
+    public function getUAEnabled(): bool
+    {
+        return (bool) $this->getConfig(self::XML_PATH_UNIVERSAL_ANALYTICS_ENABLED);
+    }
+
+    public function getUATrackingId(): string
+    {
+        return (string) $this->getConfig(self::XML_PATH_UNIVERSAL_ANALYTICS_TRACKING_ID);
+    }
+
+    public function getUAEndpoint(): string
+    {
+        return (string) $this->getConfig(self::XML_PATH_UNIVERSAL_ANALYTICS_ENDPOINT);
+    }
+
+    public function getUAPurchaseEventEnabled(): bool
+    {
+        return (bool) $this->getConfig(self::XML_PATH_UNIVERSAL_ANALYTICS_PURCHASE_ENABLED) && $this->getUAEnabled();
+    }
+
+    public function getUARefundEventEnabled(): bool
+    {
+        return (bool) $this->getConfig(self::XML_PATH_UNIVERSAL_ANALYTICS_REFUND_ENABLED) && $this->getUAEnabled();
+    }
+
+    public function getUACDCIDKnown(): string
+    {
+        return (string) $this->getConfig(self::XML_PATH_UNIVERSAL_ANALYTICS_CD_CID_KNOWN);
+    }
+
+    public function getUACDTimestamp(): string
+    {
+        return (string) $this->getConfig(self::XML_PATH_UNIVERSAL_ANALYTICS_CD_TIMESTAMP);
+    }
+
+    public function getUAEventCategory(): string
+    {
+        return (string) $this->getConfig(self::XML_PATH_UNIVERSAL_ANALYTICS_EVENT_CATEGORY);
+    }
+
+    public function getUATransactionAffiliation(): string
+    {
+        return (string) $this->getConfig(self::XML_PATH_UNIVERSAL_ANALYTICS_TRANSACTION_AFFILIATION);
+    }
+
+    public function getUAPurchaseEventAction(): string
+    {
+        return (string) $this->getConfig(self::XML_PATH_UNIVERSAL_ANALYTICS_PURCHASE_EVENT_ACTION);
+    }
+
+    public function getUARefundEventAction(): string
+    {
+        return (string) $this->getConfig(self::XML_PATH_UNIVERSAL_ANALYTICS_REFUND_EVENT_ACTION);
+    }
+
+    public function getAnyEnabled(): bool
+    {
+        return $this->getMPEnabled() || $this->getUAEnabled();
+    }
+
+    public function getAnyPurchaseEventEnabled(): bool
+    {
+        return $this->getMPPurchaseEventEnabled() || $this->getUAPurchaseEventEnabled();
+    }
+
+    public function getAnyRefundEventEnabled(): bool
+    {
+        return $this->getMPRefundEventEnabled() || $this->getUARefundEventEnabled();
     }
 
     /**
@@ -155,7 +236,13 @@ class Data
         return (bool) $this->getConfig(self::XML_PATH_DEBUG_LOGGING);
     }
 
-    public function getUserAgent(): string {
+    public function getUserAgent(): string
+    {
         return 'AdwiseAnalytics/2.0.0';
+    }
+
+    public function getHitType(): string
+    {
+        return 'event';
     }
 }

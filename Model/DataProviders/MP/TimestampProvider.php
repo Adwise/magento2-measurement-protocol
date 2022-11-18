@@ -1,8 +1,8 @@
 <?php
 
-namespace Adwise\Analytics\Model\DataProviders;
+namespace Adwise\Analytics\Model\DataProviders\MP;
 
-use Adwise\Analytics\Api\OrderDataProviderInterface;
+use Adwise\Analytics\Api\MeasurementProtocol\OrderDataProviderInterface;
 use Adwise\Analytics\Helper\Data;
 use Adwise\Analytics\Helper\Product;
 use DateTime;

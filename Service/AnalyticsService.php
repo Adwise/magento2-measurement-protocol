@@ -75,7 +75,7 @@ class AnalyticsService
     public function handleOrder(MagentoOrder $order) {
         $this->dataHelper->setStoreId($order->getStoreId());
 
-        if ($this->dataHelper->getIsEnabled() && $this->dataHelper->getMPEnabled() && !$this->dataHelper->getMPPurchaseEventEnabled()) {
+        if ($this->dataHelper->getIsEnabled() && $this->dataHelper->getAnyEnabled() && !$this->dataHelper->getAnyPurchaseEventEnabled()) {
             // if the order hit is not enabled, still set the aw_exported_amount to order value to allow refunds
             $order->setAwAnalyticsAmount($order->getGrandTotal());
             $order->setAwAnalyticsExport(self::EXPORT_STATUS_ORDER_HIT_DISABLED);
@@ -84,8 +84,8 @@ class AnalyticsService
         }
 
         if ((!$this->dataHelper->getIsEnabled()) ||
-            (!$this->dataHelper->getMPEnabled()) ||
-            (!($this->dataHelper->getMPPurchaseEventEnabled()))
+            (!$this->dataHelper->getAnyEnabled()) ||
+            (!($this->dataHelper->getAnyPurchaseEventEnabled()))
         ) {
             return self::ERROR_DISABLED;
         }
@@ -154,8 +154,8 @@ class AnalyticsService
         $this->dataHelper->setStoreId($creditmemo->getStoreId());
 
         if ((!$this->dataHelper->getIsEnabled()) ||
-            (!$this->dataHelper->getMPEnabled()) ||
-            (!$this->dataHelper->getMPRefundEventEnabled())
+            (!$this->dataHelper->getAnyEnabled()) ||
+            (!$this->dataHelper->getAnyRefundEventEnabled())
         ) {
             return self::ERROR_DISABLED;
         }

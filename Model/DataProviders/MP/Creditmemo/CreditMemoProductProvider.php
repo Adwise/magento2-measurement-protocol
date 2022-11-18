@@ -1,18 +1,16 @@
 <?php
 
-namespace Adwise\Analytics\Model\DataProviders\Order;
+namespace Adwise\Analytics\Model\DataProviders\MP\Creditmemo;
 
-use Adwise\Analytics\Api\OrderDataProviderInterface;
+use Adwise\Analytics\Api\CreditMemoProviderInterface;
 use Adwise\Analytics\Helper\Data;
 use Adwise\Analytics\Helper\Product;
+use Magento\Sales\Api\Data\CreditmemoInterface;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Model\Order as MagentoOrder;
 
-class ProductsDataProvider implements OrderDataProviderInterface
+class CreditMemoProductProvider implements CreditMemoProviderInterface
 {
-
-    private $undo = false;
-
     /**
      * @var Data
      */
@@ -35,10 +33,6 @@ class ProductsDataProvider implements OrderDataProviderInterface
         $this->productHelper = $productHelper;
     }
 
-    /**
-     * @param OrderItemInterface[] $products
-     * @return array[]
-     */
     public function mapHitProducts($products)
     {
         $data = [];
@@ -70,12 +64,9 @@ class ProductsDataProvider implements OrderDataProviderInterface
 
         return ['items' => $data];
     }
-
-    public function getData(OrderInterface $order)
+    public function getData(CreditmemoInterface $creditmemo)
     {
-        $this->undo = $order->getStatus() === MagentoOrder::STATE_CANCELED;
-
-        return $this->mapHitProducts($order->getItems());
+        return $this->mapHitProducts($creditmemo->getItems());
     }
 
 
@@ -85,11 +76,7 @@ class ProductsDataProvider implements OrderDataProviderInterface
      */
     public function getProductQty($product)
     {
-        $qty = $product->getQtyOrdered() ? $product->getQtyOrdered() : $product->getQty();
-        return $this->undo ? -(int)$qty : $qty;
-    }
-
-    private function round($number){
-        return round($number, 4, PHP_ROUND_HALF_EVEN);
+        $qty = $product->getQtyRefunded() ? $product->getQtyRefunded() : $product->getQty();
+        return (int)$qty;
     }
 }

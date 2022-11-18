@@ -1,6 +1,6 @@
 <?php
 
-namespace Adwise\Analytics\Api;
+namespace Adwise\Analytics\Api\MeasurementProtocol;
 
 use Magento\Sales\Api\Data\CreditmemoInterface;
 

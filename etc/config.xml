@@ -16,6 +16,31 @@
                     <![CDATA[https://www.google-analytics.com/mp/collect]]>
                 </endpoint>
             </mp>
+            <ua>
+                <collect_url>
+                    <![CDATA[https://www.google-analytics.com/collect]]>
+                </collect_url>
+                <general>
+                    <event_category>
+                        <![CDATA[Ecommerce]]>
+                    </event_category>
+                </general>
+                <purchase>
+                    <event_action>
+                        <![CDATA[Purchase]]>
+                    </event_action>
+                </purchase>
+                <refund>
+                    <event_action>
+                        <![CDATA[Refund]]>
+                    </event_action>
+                </refund>
+            </ua>
+            <hit>
+                <collect_url>
+                    <![CDATA[https://www.google-analytics.com/collect]]>
+                </collect_url>
+            </hit>
         </adwise_analytics>
     </default>
 </config>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Adwise\Analytics\Model\DataProviders\Creditmemo;
+namespace Adwise\Analytics\Model\DataProviders\UA\Creditmemo;
 
 use Adwise\Analytics\Api\CreditMemoProviderInterface;
 use Adwise\Analytics\Helper\Data;
@@ -36,33 +36,20 @@ class CreditMemoProductProvider implements CreditMemoProviderInterface
     public function mapHitProducts($products)
     {
         $data = [];
+        $i = 1;
 
-        /**
-         * @var MagentoOrder\Item $product
-         */
         foreach ($products as $product) {
             if ($product->getParentItemId()) {
                 continue;
             }
 
-            $fullProduct = $this->productHelper->getProductBySku($product->getSku());
+            $data['pr' . $i . 'id'] = $product->getSku();
+            $data['pr' . $i . 'qt'] = $this->getProductQty($product);
 
-            $item = [
-                'item_id' => $product->getSku(),
-                'item_name' => $product->getName(),
-            ];
-
-            if ($product->getDiscountAmount()) {
-                $item['discount'] = $this->round($product->getDiscountAmount());
-            }
-
-            $item['price'] = $this->round($product->getPrice());
-            $item['quantity'] = $this->round($this->getProductQty($product));
-
-            $data[$product->getSku()] = $item;
+            ++$i;
         }
 
-        return ['items' => $data];
+        return $data;
     }
     public function getData(CreditmemoInterface $creditmemo)
     {
@@ -76,7 +63,7 @@ class CreditMemoProductProvider implements CreditMemoProviderInterface
      */
     public function getProductQty($product)
     {
-        $qty = $product->getQtyRefunded() ? $product->getQtyRefunded() : $product->getQty();
+        $qty = $product->getQtyOrdered() ? $product->getQtyOrdered() : $product->getQty();
         return (int)$qty;
     }
 }

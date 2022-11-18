@@ -1,6 +1,6 @@
 <?php
 
-namespace Adwise\Analytics\Model\DataProviders\Creditmemo;
+namespace Adwise\Analytics\Model\DataProviders\MP\Creditmemo;
 
 use Adwise\Analytics\Api\CreditMemoProviderInterface;
 use Adwise\Analytics\Helper\Data;

@@ -8,9 +8,6 @@
             <label>Analytics</label>
             <tab>adwise</tab>
             <resource>Adwise_Analytics::config</resource>
-            <group id="incompatible_modules" sortOrder="0" showInDefault="1" showInStore="1" showInWebsite="1">
-                <frontend_model>Adwise\Analytics\Block\Adminhtml\Config\Debug\IncompatiblePluginList</frontend_model>
-            </group>
             <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General</label>
 
@@ -78,7 +75,77 @@
                     </field>
                 </group>
             </group>
-            <group id="debug" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="ua" translate="label" type="text" sortOrder="30" showInDefault="1" showInStore="1" showInWebsite="1">
+                <label>Universal Analytics</label>
+                <field id="is_enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Universal Analytics</label>
+                    <comment><![CDATA[Select <strong>Yes</strong> to enable UA]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="tracking_id" translate="label comment" sortOrder="20" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Tracking ID</label>
+                    <comment><![CDATA[UA-xxxxxxxxxx-x]]></comment>
+                </field>
+                <field id="endpoint" translate="label comment" sortOrder="30" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>UA Endpoint</label>
+                    <comment><![CDATA[Default: https://www.google-analytics.com/collect]]></comment>
+                </field>
+                <group id="general" translate="label" type="text" sortOrder="100" showInStore="1" showInWebsite="1" showInDefault="1">
+                    <label>General</label>
+                    <field id="cd_cid_known" translate="label comment" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Custom dimension for if CID known/unknown</label>
+                    </field>
+                    <field id="cd_timestamp" translate="label comment" sortOrder="20" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Custom dimension for timestamp of event</label>
+                    </field>
+                    <field id="event_category" translate="label comment" sortOrder="30" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Event category for UA events</label>
+                    </field>
+                    <field id="transaction_affiliation" translate="label comment" sortOrder="40" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Transaction Affiliation UA events</label>
+                    </field>
+                </group>
+                <group id="purchase" translate="label" type="text" sortOrder="110" showInWebsite="1" showInStore="1" showInDefault="1">
+                    <label>Purchase event</label>
+                    <field id="is_enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Enable Purchase Event</label>
+                        <comment><![CDATA[Select <strong>Yes</strong> to enable the purchase event]]></comment>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="event_action" translate="label comment" sortOrder="20" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Event Action for Purchase events</label>
+                    </field>
+                </group>
+                <group id="refund" translate="label" type="text" sortOrder="120" showInWebsite="1" showInStore="1" showInDefault="1">
+                    <label>Refund event</label>
+                    <field id="is_enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Enable Refund Event</label>
+                        <comment><![CDATA[Select <strong>Yes</strong> to enable the refund event]]></comment>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="event_action" translate="label comment" sortOrder="20" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Event Action for Refund events</label>
+                    </field>
+                </group>
+            </group>
+            <group id="frontend" translate="label" type="text" sortOrder="40" showInDefault="1" showInStore="1" showInWebsite="1">
+                <label>Frontend Tracking</label>
+                <field id="is_enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Frontend Tracking</label>
+                    <comment><![CDATA[Select <strong>Yes</strong> to enable frontend event tracking]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="tracking_type" translate="label comment" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Tracking Type</label>
+                    <comment><![CDATA[Select DataLayer to push events in a datalayer, or GTAG to use the GTAG Javascript]]></comment>
+                    <source_model>Adwise\Analytics\Model\Config\Source\TrackingType</source_model>
+                </field>
+                <field id="head_config" translate="label comment" sortOrder="30" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Head Content</label>
+                    <comment><![CDATA[Add the GTAG/GTM script to the head of the page]]></comment>
+                </field>
+            </group>
+            <group id="debug" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Debug</label>
                 <field id="payload_logging" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Enable debug logging for payloads to GA4</label>
