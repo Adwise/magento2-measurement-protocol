@@ -58,12 +58,9 @@ class AnalyticsCaller
 
     private function buildFullPayload(array $event, OrderInterface $order, string $createdAt)
     {
-        $timestamp = $this->timestampProvider->parseCreatedAtForMP($createdAt);
         return array_filter([
             'client_id' => $this->clientIdProvider->getClientId($order),
-//            'user_id' => $this->userIdProvider->getUserId($order),
             'events' => [$event],
-            'timestamp_micros' => $timestamp,
             'user_properties' => $this->userPropertyDataProvidersMP->getData($order)
         ]);
     }

@@ -33,7 +33,8 @@ class OrderCIDProvider implements OrderDataProviderInterface
     {
         return [
             'cid' => $this->CIDProvider->getClientId($order),
-            $this->dataHelper->getUACDCIDKnown() => $order->getGaClientId() ? 'Known' : 'Unknown'
+            $this->dataHelper->getUACDCIDKnown() => $order->getGaClientId() ? 'Known' : 'Unknown',
+            'session_id' => $order->getGaSessionId(),
         ];
     }
 }

@@ -22,6 +22,7 @@ class Data
     const XML_PATH_MEASUREMENT_PROTOCOL_ENDPOINT = 'adwise_analytics/mp/endpoint';
     const XML_PATH_MEASUREMENT_PROTOCOL_PURCHASE_ENABLED = 'adwise_analytics/mp/purchase/is_enabled';
     const XML_PATH_MEASUREMENT_PROTOCOL_REFUND_ENABLED = 'adwise_analytics/mp/refund/is_enabled';
+    const XML_PATH_MEASUREMENT_PROTOCOL_DEBUG_MODE = 'adwise_analytics/mp/generic/debug_mode';
     const XML_PATH_DEBUG_LOGGING = 'adwise_analytics/debug/payload_logging';
     const XML_PATH_UNIVERSAL_ANALYTICS_ENABLED = 'adwise_analytics/ua/is_enabled';
     const XML_PATH_UNIVERSAL_ANALYTICS_TRACKING_ID = 'adwise_analytics/ua/tracking_id';
@@ -119,6 +120,11 @@ class Data
     public function getMPEndpoint(): string
     {
         return (string) $this->getConfig(self::XML_PATH_MEASUREMENT_PROTOCOL_ENDPOINT);
+    }
+
+    public function getMPDebugMode(): bool
+    {
+        return (bool) $this->getConfig(self::XML_PATH_MEASUREMENT_PROTOCOL_DEBUG_MODE);
     }
 
     public function getMPPurchaseEventEnabled(): bool

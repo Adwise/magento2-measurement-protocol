@@ -40,7 +40,12 @@ class BaseOrderDataProvider implements OrderDataProviderInterface
             'currency' => $order->getOrderCurrencyCode(),
             'transaction_id' => $order->getIncrementId(),
             'value' => $priceMod * $this->round($order->getGrandTotal()),
+            'debug_mode' => $this->dataHelper->getMPDebugMode(),
         ];
+
+        if ($order->getGaSessionId()) {
+            $data['session_id'] = $order->getGaSessionId();
+        }
 
         if ($order->getCouponCode()) {
             $data['coupon'] = $order->getCouponCode();

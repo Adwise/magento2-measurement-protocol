@@ -35,7 +35,7 @@
                 <label>Measurement Protocol</label>
                 <field id="is_enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Enable Measurement Protocol</label>
-                    <comment><![CDATA[Select <strong>Yes</strong> to enable GA4 instead of UA]]></comment>
+                    <comment><![CDATA[Select <strong>Yes</strong> to enable GA4 measurement protocol]]></comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="measurement_id" translate="label comment" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
@@ -52,9 +52,9 @@
                 </field>
                 <group id="generic" translate="label" type="text" sortOrder="100" showInWebsite="1" showInStore="1" showInDefault="1">
                     <label>Generic</label>
-                    <field id="enable_user_id" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                        <label>Enable User ID</label>
-                        <comment><![CDATA[Select <strong>Yes</strong> to enable the customer id as user_id parameter]]></comment>
+                    <field id="debug_mode" translate="label comment" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Debug mode</label>
+                        <comment><![CDATA[Select <strong>Yes</strong> to enable debug_mode on GA4 payloads]]></comment>
                         <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     </field>
                 </group>
