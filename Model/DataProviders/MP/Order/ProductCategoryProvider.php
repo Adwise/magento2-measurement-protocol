@@ -43,9 +43,9 @@ class ProductCategoryProvider implements OrderDataProviderInterface
             }
 
             $fullProduct = $this->productHelper->getProductBySku($product->getSku());
+            $item = [];
             if ($fullProduct) {
                 $categories = $this->productHelper->getProductCategories($fullProduct);
-                $item = [];
                 $i = 1;
                 foreach ($categories as $category) {
                     if ($i === 1) {
