@@ -43,6 +43,10 @@ class ProductBrandProvider implements OrderDataProviderInterface
 
             $fullProduct = $this->productHelper->getProductBySku($product->getSku());
 
+            if (!$fullProduct) {
+                continue;
+            }
+
             $item = [
                 'item_brand' => $fullProduct->getData($this->dataHelper->getBrandAttribute()) ? $fullProduct->getAttributeText($this->dataHelper->getBrandAttribute()) : $this->dataHelper->getDefaultBrand()
             ];
