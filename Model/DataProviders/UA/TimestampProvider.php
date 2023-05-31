@@ -1,6 +1,6 @@
 <?php
 
-namespace Adwise\Analytics\Model\DataProviders;
+namespace Adwise\Analytics\Model\DataProviders\UA;
 
 use Adwise\Analytics\Api\OrderDataProviderInterface;
 use Adwise\Analytics\Helper\Data;
@@ -23,9 +23,9 @@ class TimestampProvider implements OrderDataProviderInterface
 
     public function getData(OrderInterface $order)
     {
-        if ($this->dataHelper->getCustomDimensionTimestamp()) {
+        if ($this->dataHelper->getUACDTimestamp()) {
             $now = new DateTime();
-            $data[$this->dataHelper->getCustomDimensionTimestamp()] = $now->format('c');
+            $data[$this->dataHelper->getUACDTimestamp()] = $now->format('c');
         }
     }
 }

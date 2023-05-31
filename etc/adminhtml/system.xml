@@ -8,28 +8,20 @@
             <label>Analytics</label>
             <tab>adwise</tab>
             <resource>Adwise_Analytics::config</resource>
-            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General</label>
 
                 <field id="is_enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Enable Measurement Protocol</label>
+                    <label>Enable Module</label>
                     <comment><![CDATA[Select <strong>Yes</strong> to enable the module.]]></comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-
-                <field id="tracking_id" translate="label comment" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Tracking ID</label>
-                    <comment><![CDATA[UA-xxxxxxxx-x]]></comment>
-                </field>
-
                 <field id="brand_attribute" translate="label" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Brand attribute</label>
                 </field>
-
                 <field id="default_brand" translate="label" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Default brand</label>
                 </field>
-
                 <field id="ignored_categories" translate="label" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Ignored categories</label>
                     <comment><![CDATA[Comma separated list of category ID's that should be ignored in payload]]></comment>
@@ -39,110 +31,107 @@
                     <comment><![CDATA[Cookie name for the CID, default _ga]]></comment>
                 </field>
             </group>
-            <group id="hit" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Hit configuration</label>
-
-                <field id="ga_collect_url" translate="label comment" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Google Analytics Collect URL</label>
-                    <comment><![CDATA[Default: www.google-analytics.com/collect]]></comment>
-                </field>
-
-                <field id="type" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Event type</label>
-                    <source_model>Adwise\Analytics\Model\Config\EventTypes</source_model>
-                </field>
-
-                <field id="event_category" translate="label" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Event category</label>
-                    <depends>
-                        <field id="type">event</field>
-                    </depends>
-                </field>
-
-                <field id="event_action" translate="label" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Event action</label>
-                    <depends>
-                        <field id="type">event</field>
-                    </depends>
-                </field>
-
-                <field id="event_label" translate="label" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Event label</label>
-                    <depends>
-                        <field id="type">event</field>
-                    </depends>
-                </field>
-
-                <field id="event_value" translate="label" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Event value</label>
-                    <depends>
-                        <field id="type">event</field>
-                    </depends>
-                </field>
-
-                <field id="pageview_hostname" translate="label " sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Pageview hostname</label>
-                    <depends>
-                        <field id="type">pageview</field>
-                    </depends>
-                </field>
-
-                <field id="pageview_path" translate="label comment" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Pageview path</label>
-                    <depends>
-                        <field id="type">pageview</field>
-                    </depends>
-                </field>
-
-                <field id="pageview_title" translate="label comment" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Pageview title</label>
-                    <depends>
-                        <field id="type">pageview</field>
-                    </depends>
-                </field>
-
-                <field id="transaction_affiliation" translate="label" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Transaction affiliation</label>
-                </field>
-
-                <field id="user_agent" translate="label" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>User agent</label>
-                </field>
-
-                <field id="cd_known" translate="label" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Custom Dimension Known/Unknown</label>
-                </field>
-                <field id="cd_timestamp" translate="label" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Custom Dimension for Timestamp</label>
-                </field>
-            </group>
-            <group id="hit_order" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Hit configuration - Order</label>
-
+            <group id="mp" translate="label" type="text" sortOrder="20" showInDefault="1" showInStore="1" showInWebsite="1">
+                <label>Measurement Protocol</label>
                 <field id="is_enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Enable hits for created orders</label>
+                    <label>Enable Measurement Protocol</label>
+                    <comment><![CDATA[Select <strong>Yes</strong> to enable GA4 measurement protocol]]></comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
+                <field id="measurement_id" translate="label comment" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Measurement ID</label>
+                    <comment><![CDATA[G-xxxxxxxxxx]]></comment>
+                </field>
+                <field id="api_secret" translate="label comment" sortOrder="20" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>API secret</label>
+                    <comment><![CDATA[xxxxxxxxxx]]></comment>
+                </field>
+                <field id="endpoint" translate="label comment" sortOrder="30" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>GA4 Endpoint</label>
+                    <comment>Default: https://www.google-analytics.com/mp/collect</comment>
+                </field>
+                <group id="generic" translate="label" type="text" sortOrder="100" showInWebsite="1" showInStore="1" showInDefault="1">
+                    <label>Generic</label>
+                    <field id="debug_mode" translate="label comment" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Debug mode</label>
+                        <comment><![CDATA[Select <strong>Yes</strong> to enable debug_mode on GA4 payloads]]></comment>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                </group>
+                <group id="purchase" translate="label" type="text" sortOrder="110" showInWebsite="1" showInStore="1" showInDefault="1">
+                    <label>Purchase event</label>
+                    <field id="is_enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Enable Purchase Event</label>
+                        <comment><![CDATA[Select <strong>Yes</strong> to enable the purchase event]]></comment>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                </group>
+                <group id="refund" translate="label" type="text" sortOrder="120" showInWebsite="1" showInStore="1" showInDefault="1">
+                    <label>Refund event</label>
+                    <field id="is_enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Enable Refund Event</label>
+                        <comment><![CDATA[Select <strong>Yes</strong> to enable the refund event]]></comment>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                </group>
             </group>
-            <group id="hit_credit_memo" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Hit configuration - Credit Memo</label>
-
+            <group id="ua" translate="label" type="text" sortOrder="30" showInDefault="1" showInStore="1" showInWebsite="1">
+                <label>Universal Analytics</label>
                 <field id="is_enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Enable hits for created credit memo's</label>
+                    <label>Enable Universal Analytics</label>
+                    <comment><![CDATA[Select <strong>Yes</strong> to enable UA]]></comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-
-                <field id="event_action" translate="label" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Event action for creditmemo, default Refund</label>
+                <field id="tracking_id" translate="label comment" sortOrder="20" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Tracking ID</label>
+                    <comment><![CDATA[UA-xxxxxxxxxx-x]]></comment>
                 </field>
-                <field id="product_action" translate="label" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Event action for creditmemo, default refund</label>
+                <field id="endpoint" translate="label comment" sortOrder="30" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>UA Endpoint</label>
+                    <comment><![CDATA[Default: https://www.google-analytics.com/collect]]></comment>
                 </field>
+                <group id="general" translate="label" type="text" sortOrder="100" showInStore="1" showInWebsite="1" showInDefault="1">
+                    <label>General</label>
+                    <field id="cd_cid_known" translate="label comment" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Custom dimension for if CID known/unknown</label>
+                    </field>
+                    <field id="cd_timestamp" translate="label comment" sortOrder="20" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Custom dimension for timestamp of event</label>
+                    </field>
+                    <field id="event_category" translate="label comment" sortOrder="30" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Event category for UA events</label>
+                    </field>
+                    <field id="transaction_affiliation" translate="label comment" sortOrder="40" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Transaction Affiliation UA events</label>
+                    </field>
+                </group>
+                <group id="purchase" translate="label" type="text" sortOrder="110" showInWebsite="1" showInStore="1" showInDefault="1">
+                    <label>Purchase event</label>
+                    <field id="is_enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Enable Purchase Event</label>
+                        <comment><![CDATA[Select <strong>Yes</strong> to enable the purchase event]]></comment>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="event_action" translate="label comment" sortOrder="20" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Event Action for Purchase events</label>
+                    </field>
+                </group>
+                <group id="refund" translate="label" type="text" sortOrder="120" showInWebsite="1" showInStore="1" showInDefault="1">
+                    <label>Refund event</label>
+                    <field id="is_enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Enable Refund Event</label>
+                        <comment><![CDATA[Select <strong>Yes</strong> to enable the refund event]]></comment>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="event_action" translate="label comment" sortOrder="20" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Event Action for Refund events</label>
+                    </field>
+                </group>
             </group>
-            <group id="debug" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="debug" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Debug</label>
                 <field id="payload_logging" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Enable debug logging for payloads to GA</label>
+                    <label>Enable debug logging for payloads to GA4</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>

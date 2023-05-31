@@ -1,15 +1,14 @@
 <?php
 
-namespace Adwise\Analytics\Model\DataProviders\Creditmemo;
+namespace Adwise\Analytics\Model\DataProviders\UA\Order;
 
-use Adwise\Analytics\Api\CreditMemoProviderInterface;
+use Adwise\Analytics\Api\OrderDataProviderInterface;
 use Adwise\Analytics\Helper\Data;
 use Adwise\Analytics\Helper\Product;
-use Magento\Sales\Api\Data\CreditmemoInterface;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Model\Order as MagentoOrder;
 
-class CreditMemoProductProvider implements CreditMemoProviderInterface
+class ProductCategoryProvider implements OrderDataProviderInterface
 {
     /**
      * @var Data
@@ -43,27 +42,19 @@ class CreditMemoProductProvider implements CreditMemoProviderInterface
                 continue;
             }
 
-            $data['pr' . $i . 'id'] = $product->getSku();
-            $data['pr' . $i . 'qt'] = $this->getProductQty($product);
-
+            $fullProduct = $this->productHelper->getProductBySku($product->getSku());
+            if ($fullProduct) {
+                $categories = $this->productHelper->getProductCategories($fullProduct);
+                $data['pr' . $i . 'ca'] = implode('|', $categories);
+            }
             ++$i;
         }
 
         return $data;
     }
-    public function getData(CreditmemoInterface $creditmemo)
-    {
-        return $this->mapHitProducts($creditmemo->getItems());
-    }
 
-
-    /**
-     * @param $product
-     * @return int
-     */
-    public function getProductQty($product)
+    public function getData(OrderInterface $order)
     {
-        $qty = $product->getQtyOrdered() ? $product->getQtyOrdered() : $product->getQty();
-        return (int)$qty;
+        return $this->mapHitProducts($order->getItems());
     }
 }

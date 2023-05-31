@@ -54,6 +54,7 @@ class SaveGaClientIdToOrderObserver implements ObserverInterface
 
         try {
             $order->setGaClientId($this->getGaClientIdFromCookie());
+            $order->setGaSessionId($this->getGaSessionIdFromCookie());
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage());
         } finally {
@@ -75,5 +76,25 @@ class SaveGaClientIdToOrderObserver implements ObserverInterface
         }
 
         return implode('.', [$parts[2], $parts[3]]);
+    }
+
+    public function getGaSessionIdFromCookie(): ?string
+    {
+        // session id cookie is _ga_(container)
+        if ((!$this->dataHelper->getMPEnabled()) || empty($this->dataHelper->getMPMeasurementId())) {
+            return null;
+        }
+
+        $measurementId = $this->dataHelper->getMPMeasurementId();
+        // MeasurementID is G-123WXVRLKN, container is 123WXVRLKN
+        $container = substr($measurementId, 2);
+        $cookieValue = $this->_cookieManager->getCookie('_ga_' . $container);
+        $parts = explode('.', $cookieValue ?? '');
+        // CookieValue is GS1.1.1677231346.2.1.1677233939.0.0.0, session id is 1677231346
+        if (count($parts) < 3) {
+            return null;
+        }
+
+        return $parts[2];
     }
 }

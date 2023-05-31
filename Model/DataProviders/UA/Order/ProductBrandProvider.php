@@ -1,6 +1,6 @@
 <?php
 
-namespace Adwise\Analytics\Model\DataProviders\Order;
+namespace Adwise\Analytics\Model\DataProviders\UA\Order;
 
 use Adwise\Analytics\Api\OrderDataProviderInterface;
 use Adwise\Analytics\Helper\Data;
@@ -8,7 +8,7 @@ use Adwise\Analytics\Helper\Product;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Model\Order as MagentoOrder;
 
-class ProductCategoryProvider implements OrderDataProviderInterface
+class ProductBrandProvider implements OrderDataProviderInterface
 {
     /**
      * @var Data
@@ -44,8 +44,7 @@ class ProductCategoryProvider implements OrderDataProviderInterface
 
             $fullProduct = $this->productHelper->getProductBySku($product->getSku());
             if ($fullProduct) {
-                $categories = $this->productHelper->getProductCategories($fullProduct);
-                $data['pr' . $i . 'ca'] = implode('|', $categories);
+                $data['pr' . $i . 'br'] = $fullProduct->getData($this->dataHelper->getBrandAttribute()) ? $fullProduct->getAttributeText($this->dataHelper->getBrandAttribute()) : $this->dataHelper->getDefaultBrand();
             }
             ++$i;
         }

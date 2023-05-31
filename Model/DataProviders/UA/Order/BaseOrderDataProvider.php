@@ -1,6 +1,6 @@
 <?php
 
-namespace Adwise\Analytics\Model\DataProviders\Order;
+namespace Adwise\Analytics\Model\DataProviders\UA\Order;
 
 use Adwise\Analytics\Api\OrderDataProviderInterface;
 use Adwise\Analytics\Helper\Data;
@@ -40,26 +40,17 @@ class BaseOrderDataProvider implements OrderDataProviderInterface
             'v' => 1,
             't' => $this->dataHelper->getHitType(),
             'el' => $order->getIncrementId(),
-            'tid' => $this->dataHelper->getTrackingId(),
+            'tid' => $this->dataHelper->getUATrackingId(),
             'ti' => $order->getIncrementId(),
-            'ta' => $this->dataHelper->getTransactionAffiliation(),
+            'ta' => $this->dataHelper->getUATransactionAffiliation(),
             'tr' => $priceMod * $this->round($order->getGrandTotal()),
             'tt' => $priceMod * $this->round($order->getTaxAmount()),
             'ts' => $priceMod * $this->round($order->getShippingAmount()),
-            'pa' => 'purchase'
+            'pa' => 'purchase',
+            'ec' => $this->dataHelper->getUAEventCategory(),
+            'ea' => $this->dataHelper->getUaPurchaseEventAction(),
         ];
 
-        switch ($this->dataHelper->getHitType()) {
-            case 'event':
-                $data['ec'] = $this->dataHelper->getEventCategory();
-                $data['ea'] = $this->dataHelper->getEventAction();
-                break;
-            case 'pageview':
-                $data['dh'] = $this->dataHelper->getPageviewHostname();
-                $data['dp'] = $this->dataHelper->getPageviewPath();
-                $data['dt'] = $this->dataHelper->getPageviewTitle();
-                break;
-        }
         return $data;
     }
 

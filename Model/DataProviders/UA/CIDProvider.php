@@ -1,6 +1,6 @@
 <?php
 
-namespace Adwise\Analytics\Model\DataProviders;
+namespace Adwise\Analytics\Model\DataProviders\UA;
 
 use Adwise\Analytics\Api\OrderDataProviderInterface;
 use Adwise\Analytics\Helper\Data;
@@ -29,11 +29,16 @@ class CIDProvider implements OrderDataProviderInterface
         $data = [];
         if ($order->getGaClientId()) {
             $data['cid'] = $order->getGaClientId();
-            $data[$this->dataHelper->getCustomDimensionKnown()] = 'Known';
+            if ($this->dataHelper->getUACDCIDKnown()) {
+                $data[$this->dataHelper->getUACDCIDKnown()] = 'Known';
+            }
         } else {
             $data['cid'] = $this->identityService->generateId();
-            $data[$this->dataHelper->getCustomDimensionKnown()] = 'Unknown';
+            if ($this->dataHelper->getUACDCIDKnown()) {
+                $data[$this->dataHelper->getUACDCIDKnown()] = 'Unknown';
+            }
         }
+
         return $data;
     }
 }

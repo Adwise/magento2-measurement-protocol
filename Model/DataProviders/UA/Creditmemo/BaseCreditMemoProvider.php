@@ -1,6 +1,6 @@
 <?php
 
-namespace Adwise\Analytics\Model\DataProviders\Creditmemo;
+namespace Adwise\Analytics\Model\DataProviders\UA\Creditmemo;
 
 use Adwise\Analytics\Api\CreditMemoProviderInterface;
 use Adwise\Analytics\Helper\Data;
@@ -26,25 +26,16 @@ class BaseCreditMemoProvider implements CreditMemoProviderInterface
 
         $data = [
             'v' => 1,
-            'tid' => $this->dataHelper->getTrackingId(),
+            'tid' => $this->dataHelper->getUATrackingId(),
             't' => $this->dataHelper->getHitType(),
             'el' => $creditmemo->getOrder()->getIncrementId(),
             'ti' =>  $creditmemo->getOrder()->getIncrementId(),
             'pa' => $this->dataHelper->getCreditMemoProductAction(),
+            'ec' => $this->dataHelper->getUAEventCategory(),
+            'ea' => $this->dataHelper->getUARefundEventAction(),
             'ni' => '1', // This is a no-interaction event
         ];
 
-        switch ($this->dataHelper->getHitType()) {
-            case 'event':
-                $data['ec'] = $this->dataHelper->getEventCategory();
-                $data['ea'] = $this->dataHelper->getCreditMemoEventAction();
-                break;
-            case 'pageview':
-                $data['dh'] = $this->dataHelper->getPageviewHostname();
-                $data['dp'] = $this->dataHelper->getPageviewPath();
-                $data['dt'] = $this->dataHelper->getPageviewTitle();
-                break;
-        }
         return $data;
     }
 

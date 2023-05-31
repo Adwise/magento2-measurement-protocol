@@ -1,9 +1,9 @@
 <?php
 
-namespace Adwise\Analytics\Model\DataProviders\Creditmemo;
+namespace Adwise\Analytics\Model\DataProviders\UA\Creditmemo;
 
 use Adwise\Analytics\Api\CreditMemoProviderInterface;
-use Adwise\Analytics\Model\DataProviders\CIDProvider;
+use Adwise\Analytics\Model\DataProviders\UA\CIDProvider;
 use Magento\Sales\Api\Data\CreditmemoInterface;
 
 

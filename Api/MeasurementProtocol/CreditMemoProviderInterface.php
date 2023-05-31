@@ -1,13 +1,9 @@
 <?php
 
-namespace Adwise\Analytics\Api;
+namespace Adwise\Analytics\Api\MeasurementProtocol;
 
 use Magento\Sales\Api\Data\CreditmemoInterface;
 
-/**
- * @deprecated
- * @see \Adwise\Analytics\Model\MP\CreditMemoDataProviders
- */
 interface CreditMemoProviderInterface
 {
     public function getData(CreditmemoInterface $creditmemo);

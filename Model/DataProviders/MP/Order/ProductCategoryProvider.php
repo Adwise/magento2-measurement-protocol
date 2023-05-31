@@ -1,14 +1,14 @@
 <?php
 
-namespace Adwise\Analytics\Model\DataProviders\Order;
+namespace Adwise\Analytics\Model\DataProviders\MP\Order;
 
-use Adwise\Analytics\Api\OrderDataProviderInterface;
+use Adwise\Analytics\Api\MeasurementProtocol\OrderDataProviderInterface;
 use Adwise\Analytics\Helper\Data;
 use Adwise\Analytics\Helper\Product;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Model\Order as MagentoOrder;
 
-class ProductBrandProvider implements OrderDataProviderInterface
+class ProductCategoryProvider implements OrderDataProviderInterface
 {
     /**
      * @var Data
@@ -34,7 +34,7 @@ class ProductBrandProvider implements OrderDataProviderInterface
 
     public function mapHitProducts($products)
     {
-        $data = [];
+        $data = ['items' => []];
         $i = 1;
 
         foreach ($products as $product) {
@@ -43,10 +43,24 @@ class ProductBrandProvider implements OrderDataProviderInterface
             }
 
             $fullProduct = $this->productHelper->getProductBySku($product->getSku());
+            $item = [];
             if ($fullProduct) {
-                $data['pr' . $i . 'br'] = $fullProduct->getData($this->dataHelper->getBrandAttribute()) ? $fullProduct->getAttributeText($this->dataHelper->getBrandAttribute()) : $this->dataHelper->getDefaultBrand();
+                $categories = $this->productHelper->getProductCategories($fullProduct);
+                $i = 1;
+                foreach ($categories as $category) {
+                    if ($i === 1) {
+                        $item['item_category'] = $category;
+                    } else {
+                        $item['item_category' . $i] = $category;
+                    }
+                    if ($i === 5) {
+                        break;
+                    }
+                    $i++;
+                }
             }
-            ++$i;
+
+            $data['items'][$product->getSku()] = $item;
         }
 
         return $data;

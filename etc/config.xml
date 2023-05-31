@@ -11,32 +11,35 @@
                     <![CDATA[_ga]]>
                 </cid_cookie>
             </general>
+            <mp>
+                <endpoint>
+                    <![CDATA[https://www.google-analytics.com/mp/collect]]>
+                </endpoint>
+            </mp>
+            <ua>
+                <collect_url>
+                    <![CDATA[https://www.google-analytics.com/collect]]>
+                </collect_url>
+                <general>
+                    <event_category>
+                        <![CDATA[Ecommerce]]>
+                    </event_category>
+                </general>
+                <purchase>
+                    <event_action>
+                        <![CDATA[Purchase]]>
+                    </event_action>
+                </purchase>
+                <refund>
+                    <event_action>
+                        <![CDATA[Refund]]>
+                    </event_action>
+                </refund>
+            </ua>
             <hit>
-                <ga_collect_url>
-                    <![CDATA[www.google-analytics.com/collect]]>
-                </ga_collect_url>
-                <pageview_path>
-                    <![CDATA[/checkout/success/]]>
-                </pageview_path>
-                <user_agent>
-                    <![CDATA[Online shop]]>
-                </user_agent>
-
-                <type>
-                    <![CDATA[event]]>
-                </type>
-
-                <event_category>
-                    <![CDATA[ecommerce]]>
-                </event_category>
-
-                <event_action>
-                    <![CDATA[purchase]]>
-                </event_action>
-
-                <cd_known>
-                    <![CDATA[cd10]]>
-                </cd_known>
+                <collect_url>
+                    <![CDATA[https://www.google-analytics.com/collect]]>
+                </collect_url>
             </hit>
         </adwise_analytics>
     </default>
