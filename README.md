@@ -18,6 +18,8 @@ This module was initially a private repo, but we made this open source by popula
 - Send credit memo automaticaly
 - Send transaction / credit via CLI
 - Debugging payload to system log
+- Google Analytics 4 support
+
 
 ## Module Installation
 `composer require adwise/magento2-gamp`
@@ -36,8 +38,6 @@ This module was initially a private repo, but we made this open source by popula
 See [CHANGELOG.md](CHANGELOG.md)
 
 ## Roadmap
-
-- Google Analytics 4 support
 
 ## License
 
