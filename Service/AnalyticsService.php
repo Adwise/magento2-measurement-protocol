@@ -100,7 +100,7 @@ class AnalyticsService
         }
     }
 
-    private function handleProcessingOrder(MagentoOrder $order): int {
+    public function handleProcessingOrder(MagentoOrder $order): int {
         if ($this->isOldOrder($order)) {
             $this->logger->warning('[AnalyticsService] Not handling processing state on order since it has been previously exported', [$order->getIncrementId()]);
             return self::ERROR_ORDER_OLD;
@@ -125,7 +125,7 @@ class AnalyticsService
         return self::SUCCESS;
     }
 
-    public function handleCancelledOrder(MagentoOrder $order): int
+    private function handleCancelledOrder(MagentoOrder $order): int
     {
         // Ensure cancellation is allowed
         if (!$this->isCancellationAllowed($order)) {
