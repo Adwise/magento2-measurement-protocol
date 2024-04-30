@@ -14,3 +14,6 @@
 
 ## 2.0.0-RC2
 - AnalyticsService method handleProcessingOrder is now defined as public.
+
+## 2.0.1
+- Version bump
