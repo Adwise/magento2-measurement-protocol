@@ -2,7 +2,7 @@
   "name": "adwise/magento2-gamp",
   "description": "Adwise Magento 2 Google Analytics Measurement Protocol",
   "type": "magento2-module",
-  "version": "2.0.0-RC1",
+  "version": "2.0.0-RC2",
   "license": "MIT",
   "authors": [
     {

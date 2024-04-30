@@ -125,7 +125,7 @@ class AnalyticsService
         return self::SUCCESS;
     }
 
-    private function handleCancelledOrder(MagentoOrder $order): int
+    public function handleCancelledOrder(MagentoOrder $order): int
     {
         // Ensure cancellation is allowed
         if (!$this->isCancellationAllowed($order)) {
